@@ -1,0 +1,14 @@
+# Ignore .env folder
+.env/
+
+# Ignore node_modules
+node_modules/
+
+# IDE/Editor specific files
+.vscode/
+*.code-workspace
+
+# Build artifacts
+/build/
+/dist/
+/out/
