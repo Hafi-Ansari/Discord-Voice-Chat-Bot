@@ -1,7 +1,9 @@
 require("dotenv").config({ path: "../.env" });
 const Discord = require("discord.js");
+const axios = require("axios");
 const discordToken = process.env.DISCORD_TOKEN;
-const specificChannelID = process.env.CHANNEL_ID
+const specificChannelID = process.env.CHANNEL_ID;
+const messageURL = process.env.USER_MESSAGE_URL;
 
 const Client = new Discord.Client({
   intents: [
@@ -27,8 +29,17 @@ Client.on("ready", () => {
 Client.on("messageCreate", (message) => {
   if (message.author.bot) return; // Ignore messages from other bots
   if (message.channel.id === specificChannelID && message.content) {
-    // Respond to any message with 'Hello World' in the specific channel
-    message.channel.send("Hello World");
+    // Sending the user's message to the Flask server
+    axios
+      .post(messageURL, { message: message.content })
+      .then((response) => {
+        // Respond to the user with the success message from the Flask server
+        message.channel.send(response.data.message);
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+        message.channel.send("An error occurred while sending the message.");
+      });
   }
 });
 
