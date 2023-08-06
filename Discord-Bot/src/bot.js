@@ -1,12 +1,12 @@
+const fs = require("fs");
 require("dotenv").config({ path: "../.env" });
 const Discord = require("discord.js");
 const sendSampleOgg = require("./voice-message.js"); // Import the sendSampleOgg function
-const axios = require("axios")
+const axios = require("axios");
 
 const discordToken = process.env.DISCORD_TOKEN;
 const specificChannelID = process.env.CHANNEL_ID;
 const messageURL = process.env.USER_MESSAGE_URL;
-
 
 const Client = new Discord.Client({
   intents: [
@@ -32,13 +32,17 @@ Client.on("ready", () => {
 Client.on("messageCreate", (message) => {
   if (message.author.bot) return; // Ignore messages from other bots
   if (message.channel.id === specificChannelID && message.content) {
-    sendSampleOgg(specificChannelID, discordToken); // Call the function with channel ID and token
     // Sending the user's message to the Flask server
-    axios
-      .post(messageURL, { message: message.content })
+    axios({
+      method: "post",
+      url: messageURL,
+      responseType: "arraybuffer",
+      data: { message: message.content },
+    })
       .then((response) => {
-        // Respond to the user with the success message from the Flask server
-        message.channel.send(response.data.message);
+        const audio = new Uint8Array(response.data);
+        fs.writeFileSync("sample.ogg", audio);
+        sendSampleOgg(specificChannelID, discordToken);
       })
       .catch((error) => {
         console.error("An error occurred:", error);

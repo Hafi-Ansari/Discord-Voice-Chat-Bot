@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import os
 import openai
 from dotenv import load_dotenv
+from lab import generate_audio
 
 load_dotenv()
 openai.api_key = os.getenv("GPT_TOKEN")
@@ -24,15 +25,11 @@ def generate_gpt_response(user_message):
 def log_and_respond_message():
     content = request.json
     user_message = content['message']
-    print(f"Received message: {user_message}")  # Logging the user's message
 
     gpt_response = generate_gpt_response(user_message)
+    generate_audio(gpt_response)
 
-    response = {
-        "status": "success",
-        "message": gpt_response
-    }
-    return jsonify(response)
+    return send_file('audio.ogg', mimetype='audio/ogg')
 
 if __name__ == '__main__':
     app.run(port=5000)
