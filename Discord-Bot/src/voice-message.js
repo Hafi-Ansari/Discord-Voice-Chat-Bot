@@ -13,7 +13,7 @@ const sendSampleOgg = async (channel_id, discordToken) => {
       files: [
         {
           file_size: sampleOgg.byteLength, // Use sampleOgg's byteLength
-          filename: "sample.ogg", // Change filename to 'sample.ogg'
+          filename: "sample.ogg", 
           id: "2",
         },
       ],
@@ -44,10 +44,10 @@ const sendSampleOgg = async (channel_id, discordToken) => {
       attachments: [
         {
           id: "0",
-          filename: "sample.ogg", // Change filename to 'sample.ogg'
+          filename: "sample.ogg", 
           uploaded_filename: resp.data.attachments[0].upload_filename,
-          duration_secs: 3, // You might want to calculate the actual duration of the sample.ogg file
-          waveform: "FzYACgAAAAAAACQAAAAAAAA=", // You might want to generate a waveform for the sample.ogg file
+          duration_secs: 5, // calculate the actual duration of the sample.ogg file
+          waveform: "FzYACgAAAAAAACQAAAAAAAA=", 
         },
       ],
     },
