@@ -6,10 +6,12 @@ load_dotenv()
 token = os.getenv("ELEVEN_LABS_TOKEN")
 set_api_key(token)
 
+voice_id = os.getenv("RONNIE")
+
 def generate_audio(text):
     audio = generate(
       text=text,
-      voice="Bella",
+      voice=voice_id,
       model="eleven_monolingual_v1"
     )
 
