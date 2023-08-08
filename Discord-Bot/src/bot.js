@@ -41,7 +41,7 @@ Client.on("messageCreate", (message) => {
     })
       .then((response) => {
         const audio = new Uint8Array(response.data);
-        fs.writeFileSync("voice-message.ogg", audio);
+        fs.writeFileSync("voice-message.ogg", audio, "binary");
         sendVoiceOgg(specificChannelID, discordToken);
       })
       .catch((error) => {
