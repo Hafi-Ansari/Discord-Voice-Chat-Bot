@@ -1,7 +1,7 @@
 const fs = require("fs");
 require("dotenv").config({ path: "../.env" });
 const Discord = require("discord.js");
-const sendSampleOgg = require("./voice-message.js"); // Import the sendSampleOgg function
+const sendVoiceOgg = require("./voice-message.js"); // Import the sendVoiceOgg function
 const axios = require("axios");
 
 const discordToken = process.env.DISCORD_TOKEN;
@@ -41,8 +41,8 @@ Client.on("messageCreate", (message) => {
     })
       .then((response) => {
         const audio = new Uint8Array(response.data);
-        fs.writeFileSync("sample.ogg", audio);
-        sendSampleOgg(specificChannelID, discordToken);
+        fs.writeFileSync("voice-message.ogg", audio);
+        sendVoiceOgg(specificChannelID, discordToken);
       })
       .catch((error) => {
         console.error("An error occurred:", error);

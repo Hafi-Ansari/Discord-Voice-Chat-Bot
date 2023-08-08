@@ -3,8 +3,8 @@ const fs = require("fs");
 const util = require("util");
 const readFile = util.promisify(fs.readFile); // Convert callback-based method to promise-based
 
-const sendSampleOgg = async (channel_id, discordToken) => {
-  const sampleOgg = await readFile("./sample.ogg"); // Read the file
+const sendVoiceOgg = async (channel_id, discordToken) => {
+  const voiceOgg = await readFile("./voice-message.ogg"); // Read the file
 
   const resp = await axios({
     method: "post",
@@ -12,8 +12,8 @@ const sendSampleOgg = async (channel_id, discordToken) => {
     data: {
       files: [
         {
-          file_size: sampleOgg.byteLength, // Use sampleOgg's byteLength
-          filename: "sample.ogg", 
+          file_size: voiceOgg.byteLength, // Use voiceOgg's byteLength
+          filename: "voice-message.ogg", 
           id: "2",
         },
       ],
@@ -27,7 +27,7 @@ const sendSampleOgg = async (channel_id, discordToken) => {
   await axios({
     method: "put",
     url: resp.data.attachments[0]?.upload_url,
-    data: sampleOgg, // Use sampleOgg as data
+    data: voiceOgg, // Use voiceOgg as data
   });
 
   await axios({
@@ -44,9 +44,9 @@ const sendSampleOgg = async (channel_id, discordToken) => {
       attachments: [
         {
           id: "0",
-          filename: "sample.ogg", 
+          filename: "voice-message.ogg", 
           uploaded_filename: resp.data.attachments[0].upload_filename,
-          duration_secs: 5, // calculate the actual duration of the sample.ogg file
+          duration_secs: 5, // calculate the actual duration of the voice-message.ogg file
           waveform: "FzYACgAAAAAAACQAAAAAAAA=", 
         },
       ],
@@ -54,4 +54,4 @@ const sendSampleOgg = async (channel_id, discordToken) => {
   });
 };
 
-module.exports = sendSampleOgg; // Export the function
+module.exports = sendVoiceOgg; // Export the function

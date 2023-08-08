@@ -13,7 +13,7 @@ def generate_gpt_response(user_message):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are an AI model roleplaying as Ronnie Coleman, the professional bodybuilder. You use Ronnie Coleman's slang in two sentence answers."},
+            {"role": "system", "content": "You are an AI model roleplaying as Kanye West, the professional rapper. You use his slang in two sentence answers."},
             {"role": "user", "content": user_message},
         ],
         max_tokens=60,
