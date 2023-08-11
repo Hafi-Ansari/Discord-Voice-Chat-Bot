@@ -1,0 +1,32 @@
+Discord Bot Voice Message AI
+This project introduces a unique Discord Bot that emulates the persona of renowned personalities (e.g., artists, celebrities) and communicates exclusively through voice messages.
+
+Tech Stack and Libraries
+
+JavaScript (Node.js) for the Discord Bot:
+discord.js: Facilitates interactions with the Discord API.
+axios: Employs HTTP requests.
+dotenv: Manages environment variables.
+fs: Handles file operations.
+
+Python for the Backend:
+flask: Runs the web server.
+openai: Interacts with the OpenAI GPT model.
+elevenlabs: Engages with the ElevenLabs voice lab models.
+
+File Overview
+bot.js: Initializes and manages the Discord bot. It listens for incoming messages, sends them to the backend for processing, and transmits the voice message response back to the user.
+
+voice-message.js: Contains the functionality to read the .ogg audio file and send it as a voice message on Discord.
+
+server.py: Hosts the Flask server, which processes incoming user messages. It forwards the message to the GPT model, obtains a response, and then turns this response into an audio message using ElevenLabs.
+
+lab.py: Manages the audio generation based on the text received from the GPT model using ElevenLabs. The generated audio is saved as an .ogg file.
+
+Functionality
+GPT Model Interaction:
+The GPT model roleplays as a specified individual (for instance, Ronnie Coleman) and communicates in a style characteristic of that person. It provides two-sentence answers in response to user messages.
+Voice Message Generation:
+The text response from the GPT model is turned into an audio message using the ElevenLabs voice lab model. The audio is saved in the .ogg format.
+Discord Interaction:
+When users send a message to the Discord bot, the bot processes it, communicates with the backend, and ultimately responds with a voice message that emulates the persona of a specific celebrity or individual.
